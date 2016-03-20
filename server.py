@@ -31,8 +31,6 @@ if list(c.execute("select count(*) from sqlite_master where type='table' and nam
   conn.commit()
 
 define("port", default=5000, type=int)
-define("username", default="user")
-define("password", default="pass")
 
 class BaseHandler(tornado.web.RequestHandler):
   cookie_username = "username"
