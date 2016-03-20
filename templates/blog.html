@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% import tornado.template %}
 <html>
 <head>
   <meta charset="UTF-8">
@@ -28,10 +29,10 @@
       </div>
       <div class="navbar-collapse collapse" id="navbar-main">
         <ul class="nav navbar-nav">
-          <li><a href="/activity">Activity</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/link">Link</a></li>
-          <li><a href="/wiki">Wiki</a></li>
+          <li><a href="activity">Activity</a></li>
+          <li><a href="blog">Blog</a></li>
+          <li><a href="link">Link</a></li>
+          <li><a href="wiki">Wiki</a></li>
           {% if login_user == None %}
             <li><a href="/auth/login">Login</a></li>
           {% else %}
@@ -43,37 +44,41 @@
   </div>
 </header>
 
-<div class="jumbotron">
-	<div class="container">
-		<h1>NITAC Procon</h1>
-    <p id="subtext">We spent last weekend being lazy.</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-  </div>
-</div>
+<body>
+  {% for b in list(blog_data) %}
+    <div class="container">
+      <div id = "blog">
+        <font size=7>{{b[3]}}</font>
+        <font size=4>{{b[4]}}</font><br>
+        <font size=6>{{b[5]}}</font><br>
+        <font size=4> {{b[1]}} </font>
+        <font size=3>{{str(b[2])}}</font>
+        <br>
+      </div>
+    </div>
+    <br>
+  {% end %}
+  {% if login_user != None %}
+    <div class="container">
+      <form method="post" action="/blog">
+        {% module xsrf_form_html() %}  
+        タイトル<br>
+        <textarea name="blog_title" cols="50" rows="1"></textarea>
+        <br>カテゴリ<br>
+        <textarea name="blog_category" cols="50" rows="1"></textarea>
+        <br>本文<br>
+        <textarea name="blog_body" cols="50" rows="6"></textarea><br>
+        <input type="submit">
+      </form>
+    </div>
+    <br>
+    <div class="container">
+      <form method="post" action="/blog/image_save" enctype="multipart/form-data">
+        {% module xsrf_form_html() %}
+        <input type="file" name="aaa"/>
+        <input type="submit"/>
+      </form>
+    </div>
+  {% end %}
 
-<div class="container">
-  <h1>About us</h1>
-  <p>
-  ワレワレハアナンコウセンプログラミングドウコウカイ
-  ワレワレハアナンコウセンプログラミングドウコウカイ
-  ワレワレハアナンコウセンプログラミングドウコウカイ
-  ワレワレハアナンコウセンプログラミングドウコウカイ
-  </p>
-</div>
-
-<div class="container">
-  <h1>Current project</h1>
-  <p>H28プロコンニムケタチョウセイチュウ<br>
-  H28プロコンニムケタチョウセイチュウ<br>
-  H28プロコンニムケタチョウセイチュウ<br>
-  </p>
-</div>
-
-<div class="container">
-  <h1>Past record</h1>
-  <p>
-  H27プロコンキギョウショウ<br>
-  H27シコクチクソウゴウブンカサイミニプロコン２位
-  etc.
-  </p>
-</div>
+</body>

@@ -1,4 +1,4 @@
-body { padding-top: 80px; }
+body { padding-top: 90px; }
 #banner {
   min-height: 300px;
   border-bottom: none;
@@ -42,3 +42,7 @@ body { padding-top: 80px; }
   }
 p#subtext{ color:#88A;}
 p{ color:#666;}
+
+#blog{
+  background-color:#dee;
+}
