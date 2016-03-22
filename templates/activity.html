@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+<script type="text/javascript" src="../static/js/common.js"></script>
+
+  <title>活動記録</title>
+  <link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.css") }}">
+  <link rel="stylesheet" type="text/css" href="{{ static_url("temp.css") }}">
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<header>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/home" class="navbar-brand">NITAC Programming club</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-main">
+        <ul class="nav navbar-nav">
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/blog/1">Blog</a></li>
+          <li><a href="/link">Link</a></li>
+          <li><a href="/wiki">Wiki</a></li>
+          {% if login_user == None %}
+            <li><a href="/auth/login">Login</a></li>
+          {% else %}
+            <li><a href="/auth/logout">Logout</a></li>
+          {% end %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<body>
+<div class="jumbotron">
+  <div class="container">
+      <h1>NITAC Activity</h1>
+      <p id="subtext">プロコン部の活動記録</p>
+  </div>
+</div>
+<div id="top">
+	<div id="contents">
+	<div id="main">
+		<h2>部員数</h2>
+			<p>
+			5年　2名（内，女子　0名）<br />
+			4年 12名（内，女子　3名） ,ドイツ支部 1名（留学中）<br />
+			3年　4名（内，女子　0名）<br />
+			2年　8名（内，女子　0名）
+			</p>
+
+		<h2>活動履歴</h2>
+			<h3><a href="http://www.procon.gr.jp/" target="_blank">全国高等専門学校プログラミングコンテスト</a></h3>
+				<h4>2015年度</h4>
+					第２６回全国高等専門学校プログラミングコンテスト<br />
+					自由・課題・競技の３部門出場<br />
+					課題・自由部門ともに敢闘賞を受賞、自由部門はブロードリーフ社企業賞を受賞。
+				<h4>2014年度</h4>
+					第２５回全国高等専門学校プログラミングコンテスト<br />
+					自由・競技の２部門出場<br />
+					自由部門で敢闘賞を受賞。<br />
+				<h4>2013年度</h4>
+					第２４回全国高等専門学校プログラミングコンテスト<br />
+					課題・競技の２部門出場<br />
+					課題部門で敢闘賞を受賞。<br />
+				<h4>2012年度</h4>
+					第２３回全国高等専門学校プログラミングコンテスト<br />
+					自由・競技の２部門出場<br />
+					自由部門で敢闘賞を受賞。<br />
+				</p>
+	</div><!-- /#main -->
+	</div><!-- /#contents -->
+	<div id="footer">
+		<div id="pageTop">
+			<a href="#top"><img src="../static/act_img/pagetop.gif" alt="ページのトップへ戻る" /></a>
+		</div><!-- /#pageTop -->
+		<div class="copyright">Copyright &copy; 2011 YOUR SITE NAME All Rights Reserved.</div>
+	</div><!-- /#footer -->
+</div><!-- /#top -->
+</body>
+</html>

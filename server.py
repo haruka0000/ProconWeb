@@ -21,6 +21,7 @@ if list(c.execute("select count(*) from sqlite_master where type='table' and nam
   create table blog(
     id integer primary key,
     writer varchar(10),
+    nickname varchar(20),
     date datetime,
     title varchar(30),
     category varchar(12),
@@ -80,37 +81,107 @@ class AuthLogoutHandler(BaseHandler):
 		self.clear_current_user()
 		self.redirect('/home')
 
-class HomeHandler(BaseHandler):
+class AddUserHandler(BaseHandler):
   def get(self):
-  	self.render("home.html",
-                login_user = self.get_current_user()
+    current_user = self.get_current_user()
+    c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % current_user))[0]
+    print(c_user_data)
+    if c_user_data != None and c_user_data[3] == "A":
+      self.render("add_user.html",
+                login_user = current_user
                 )
-class ActHandler(tornado.web.RequestHandler):
-  def get(self):
-  	self.render("activity.html")
+    else:
+      self.write_error(403)
 
-class BlogHandler(BaseHandler):
-  def get(self):
-    blog_data=c.execute("SELECT * FROM blog ORDER BY id DESC;")
-
-    self.render("blog.html",
-                blog_data = blog_data,
-                login_user = self.get_current_user()
-                )
    
   def post(self):
+    user_id = list(c.execute("select count(*) from admin;"))[0][0] + 1
+    name = self.get_argument('name')
+    password = self.get_argument('password')
+    accessibility = self.get_argument('accessibility')
+    nickname = self.get_argument('nickname')
+    classroom = self.get_argument('classroom')
+    
+    c.execute('''insert into admin(id,name,password,accessibility,nickname,class) values(:id, :name, :password, :accessibility, :nickname, :classroom)''', {'id':user_id, 'name':name, 'password': password, 'accessibility':accessibility, 'nickname':nickname, 'classroom':classroom})
+    conn.commit()
+    
+    self.redirect("/home")
+
+
+
+
+
+
+
+class HomeHandler(BaseHandler):
+  def get(self):
+    current_user = self.get_current_user()
+    print(current_user)
+    a_right=False
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+      if c_user_data[3] == "A":
+        a_right=True
+    else:
+      c_user_data = None
+    self.render("home.html",
+                login_user = c_user_data,
+                access_right = a_right
+                )
+
+class ActHandler(BaseHandler): 
+  def get(self):
+    current_user = self.get_current_user()
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+      conn.commit()
+    else:
+      c_user_data = None
+    
+    self.render("activity.html",
+                login_user = c_user_data
+                )
+
+class BlogHandler(BaseHandler):
+  def get(self,page_number):
+    current_user = self.get_current_user()
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+    else:
+      c_user_data = None
+    
+    x = int(page_number)
+    lim = 5
+    y = (x-1)*lim
+    blog_count = list(c.execute("select count(*) from blog;"))[0][0]
+    b_data=c.execute("SELECT * FROM blog ORDER BY id DESC LIMIT %d OFFSET %d;" % (lim,y))
+    page = int(blog_count/lim + (1-1/lim))
+    self.render("blog.html",
+                b_data = b_data,
+                login_user = c_user_data,
+                blog_count = blog_count,
+                lim = lim,
+                page = page,
+                current_page = page_number
+                )
+
+class BlogSaveHandler(BaseHandler):
+  def post(self):
+    c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(self.get_current_user())))[0]
+
     blog_id = list(c.execute("select count(*) from blog;"))[0][0] + 1
     writer = self.get_current_user()
+    nickname = list(c_user_data)[4]
     date = datetime.now()
     title = self.get_argument('blog_title')
     category = self.get_argument('blog_category')
     body = self.get_argument('blog_body')
     print(body)
     
-    c.execute('''insert into blog(id,writer,date,title,category,body) values(:id, :writer, :date, :title, :category, :body)''', {'id':blog_id, 'writer':writer, 'date': date.today(), 'title':title, 'category':category, 'body':body})
+    c.execute('''insert into blog(id,writer,nickname,date,title,category,body) values(:id, :writer, :nickname, :date, :title, :category, :body)''', {'id':blog_id, 'writer':writer, 'nickname':nickname, 'date': date.today(), 'title':title, 'category':category, 'body':body})
     conn.commit()
     
-    self.redirect("/blog")
+    self.redirect("/blog/1")
                
                
 class ImageSaveHandler(BaseHandler):
@@ -125,25 +196,58 @@ class ImageSaveHandler(BaseHandler):
 		self.redirect("/blog")
 
 
-class LinkHandler(tornado.web.RequestHandler):
+class LinkHandler(BaseHandler):
   def get(self):
-    self.render("link.html")
-class WikiHandler(tornado.web.RequestHandler):
+    current_user = self.get_current_user()
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+    else:
+      c_user_data = None
+    
+    self.render("link.html",
+                login_user = c_user_data
+                )
+class WikiHandler(BaseHandler):
   def get(self):
-    self.render("wiki.html")
+    current_user = self.get_current_user()
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+    else:
+      c_user_data = None
+
+    self.render("wiki.html",
+                login_user = c_user_data
+                )
+
+class WikiDetailHandler(BaseHandler):
+  
+  def get(self):
+    current_user = self.get_current_user()
+    if current_user != None:
+      c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
+    else:
+      c_user_data = None
+
+    self.render("useful_items.html",
+                login_user = c_user_data
+                )
+
 
 class Application(tornado.web.Application):
   def __init__(self):
     handlers = [
       (r"/home", HomeHandler),
       (r"/activity", ActHandler),
-      (r"/blog", BlogHandler),
+      (r"/blog/([1-9]+)", BlogHandler),
       (r"/blog/image_save", ImageSaveHandler),
+      (r"/blog/text_save", BlogSaveHandler),
       (r"/link", LinkHandler),
       (r"/wiki", WikiHandler),
+      (r"/wiki/useful_items", WikiDetailHandler),
 		  (r'/', MainHandler),
       (r'/auth/login', AuthLoginHandler),
-      (r'/auth/logout', AuthLogoutHandler)
+      (r'/auth/logout', AuthLogoutHandler),
+      (r'/auth/add_user', AddUserHandler)
     ]
     settings = dict(
     	cookie_secret='gaofjawpoer940r34823842398429afadfi4iias',

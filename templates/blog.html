@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <title>NITAC Procon</title>
+  <title>ブログ</title>
   <link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.css") }}">
   <link rel="stylesheet" type="text/css" href="{{ static_url("temp.css") }}">
-  <!--[if lt IE 9]>
+   <!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
@@ -20,7 +20,7 @@
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a href="home" class="navbar-brand">NITAC Programming club</a>
+        <a href="/home" class="navbar-brand">NITAC Programming club</a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -29,10 +29,10 @@
       </div>
       <div class="navbar-collapse collapse" id="navbar-main">
         <ul class="nav navbar-nav">
-          <li><a href="activity">Activity</a></li>
-          <li><a href="blog">Blog</a></li>
-          <li><a href="link">Link</a></li>
-          <li><a href="wiki">Wiki</a></li>
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/blog/1">Blog</a></li>
+          <li><a href="/link">Link</a></li>
+          <li><a href="/wiki">Wiki</a></li>
           {% if login_user == None %}
             <li><a href="/auth/login">Login</a></li>
           {% else %}
@@ -43,24 +43,66 @@
     </div>
   </div>
 </header>
+  
+
+
 
 <body>
-  {% for b in list(blog_data) %}
+<div class="jumbotron">
+  <div class="container">
+  <h1>NITAC Blog</h1>
+  <p id="subtext">今は簡易つぶやき場</p>
+  </div>
+</div>
+
+  
+  {% for b in b_data %}
     <div class="container">
       <div id = "blog">
-        <font size=7>{{b[3]}}</font>
-        <font size=4>{{b[4]}}</font><br>
-        <font size=6>{{b[5]}}</font><br>
-        <font size=4> {{b[1]}} </font>
-        <font size=3>{{str(b[2])}}</font>
+        <font size=7>{{b[4]}}</font>
+        <font size=4>{{b[5]}}</font><br>
+        <font size=6>{{"%s"%b[6]}}</font><br>
+        <font size=4> {{b[2]}} </font>
+        <font size=3>{{str(b[3])}}</font>
         <br>
       </div>
     </div>
     <br>
   {% end %}
+
+  
+
+
+  <div class="container">
+  <ul class="pagination">
+    {% if int(current_page)==1 %}
+      <li class="disabled"><a href="1">«</a></li>
+    {% else %}
+      <li><a href={{int(current_page)-1}}>«</a></li>
+    {% end %}
+
+    {% for p in range(1,page+1) %}
+      {% if p == int(current_page) %}
+        <li class="active"><a href={{p}}>{{p}}</a></li>
+      {% else %}
+        <li><a href={{p}}>{{p}}</a></li>
+      {% end %}
+    {% end %}
+
+    {% if int(current_page)==page %}
+      <li><a href={{page}}>»</a></li>
+    {% else %}
+      <li><a href={{int(current_page)+1}}>»</a></li>
+    {% end %}
+  </ul>
+  </div>
+
+
+
+
   {% if login_user != None %}
     <div class="container">
-      <form method="post" action="/blog">
+      <form method="post" action="/blog/text_save">
         {% module xsrf_form_html() %}  
         タイトル<br>
         <textarea name="blog_title" cols="50" rows="1"></textarea>

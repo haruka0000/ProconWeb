@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% import tornado.template %}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Useful items</title>
+  <link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.css") }}">
+  <link rel="stylesheet" type="text/css" href="{{ static_url("temp.css") }}">
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<header>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/home" class="navbar-brand">NITAC Programming club</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-main">
+        <ul class="nav navbar-nav">
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/blog/1">Blog</a></li>
+          <li><a href="/link">Link</a></li>
+          <li><a href="/wiki">Wiki</a></li>
+          {% if login_user == None %}
+            <li><a href="/auth/login">Login</a></li>
+          {% else %}
+            <li><a href="/auth/logout">Logout</a></li>
+          {% end %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div class="jumbotron">
+	<div class="container">
+		<h1>あると便利なもの</h1>
+    <p id="subtext">みんなも便利なもの見つけたら教えてください</p>
+  </div>
+</div>
+
+<div class="container">
+  <p>
+	新入生諸君も初めて親から離れて生活するため色々と不安があると思われる。<br>
+	ここでは便利グッズについて紹介する。<br>
+  </p>
+</div>
+
+  <div class="bs-docs-section">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="bs-component">
+          <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <th></th>
+                <th>目次</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><a href="#Whiteboard">ホワイトボード</a></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><a href="#ketol">電気ケトル</a></td>
+              </tr>
+	　　　<tr>
+                <td>3</td>
+                <td><a href="#Deodorants">消臭剤</a></td>
+              </tr>
+	　　　<tr>
+                <td>4</td>
+                <td><a href="#kzatehifi">イヤホン</a></td>
+              </tr>
+	　　　<tr>
+                <td>5</td>
+                <td><a href="#booon">扇風機</a></td>
+              </tr>
+                <td>6</td>
+                <td><a href="#code">延長コード</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div><!-- /example -->
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="Whiteboard">1 ホワイトボード</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/Whiteboard.jpg"width="300" height="300"><br>
+	寮では行事がたくさんあり、一秒でも遅れると減点が発生する。正直笑えない。<br>
+	ここでは深く話さないが、減点以外にも辛いことも起こるので注意が必要だ。(この意味は多分入学式の日に分かる。･･･多分。)<br>
+	そんな事態にならないようにホワイトボードが便利である。<br>
+	減点が貯まるともちろん退寮になってしまうのでホワイトボードを駆使して生き残って欲しい。<br>
+	<br>
+	<br>
+  </p>
+</div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="ketol">2 電気ケトル</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/ketol.jpg"><br>
+	電気ポットではなく電気ケトルである。　今知った。<br>
+	寮食はオカズ(カタカナにした意味はない)は作り置きなので冷えている。　トースターはあり暖められるので安心して欲しい。<br>
+	だが正直育ち盛りにはすこし少ないのでカップ麺が大活躍してくれる。<br>
+	カップ麺あるところに電気ケトルあり。　なかったらしぬ<br>
+	<br>
+	<br>
+  </p>
+</div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="Deodorants">3 消臭剤</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/Deodorants.jpg"><br>
+	夏場は靴箱がとんでもない匂いが充満する。運動部の漢達の靴が大量に置かれるので無理もない。<br>
+	しかしここは思いやり。 漢の嗜みである。また寮は通気が悪いので明日の登校時に蒸れている場合があるのでひとつは置いておいて欲しい。<br>
+	<br>
+	<br>
+  </p>
+</div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="kzatehifi">4 イヤホン</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/kzatehifi.jpg"width="300" height="300"><br>
+	寮ではたくさん辛いことも起きる。　そんな時は音楽が有効だ。<br>
+	しかしスピーカーで流すと騒音で減点になってしまうので注意である。<br>
+	筆者としては「Raise your flag」「アイロニ」「Naked Romance」がお勧めだ。<br>
+	イヤホンについては高橋先輩に聞くと色々と教えてくれるだろう。<br>
+  </p>
+</div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="booon">5　扇風機</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/booon.jpg"width="300" height="300"><br>
+	夏場エアコンが使えるが使用できる月が決まっており、また夜7時からと時間制限がある。<br>
+	学校から寮に帰ってこれる時間が3時ぐらいだが使用できるようになるまで灼熱地獄である。<br>
+	寮は一年二年は3人部屋なので3人で扇風機を使うとなかなかに涼しくなる。<br>
+	<br>
+	<br>
+  </p>
+</div>
+
+<div class="container">
+  <div class="page-header">
+          <h1 id="code">6 延長コード</h1>
+        </div>
+  <p>
+	<img src="../static/wiki_img/code.jpg"width="300" height="300"><br>
+	友達と遊ぶときは必需品である。　また、扇風機を使うときにも重宝するだろう。<br>
+	タコ足配線したら発火するとか聞きますけどアレほんとなんですかね?<br>
+	<br>
+	<br>
+  </p>
+</div>

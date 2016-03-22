@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% import tornado.template %}
 <html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <title>阿南高専プロコン部</title>
+  <title>Wikipedia</title>
   <link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.css") }}">
   <link rel="stylesheet" type="text/css" href="{{ static_url("temp.css") }}">
   <!--[if lt IE 9]>
@@ -13,7 +14,6 @@
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body>
 
 <header>
   <div class="navbar navbar-default navbar-fixed-top">
@@ -37,51 +37,57 @@
           {% else %}
             <li><a href="/auth/logout">Logout</a></li>
           {% end %}
-          {% if access_right %}
-            <li><a href="/auth/add_user">Add User</a></li>
-          {% end %}
         </ul>
       </div>
     </div>
   </div>
 </header>
 
+<body>
 <div class="jumbotron">
 	<div class="container">
-		<h1>NITAC Procon</h1>
-    <p id="subtext">We spent last weekend being lazy.</p>
-    <p><a class="btn btn-primary btn-lg" href="/activity" role="button">Learn more &raquo;</a></p>
+		<h1>NITAC wiki</h1>
+    <p id="subtext">「寮での生き方」から「先生の好物」まで手広くカバーする巨大辞典(になる予定)</p>
   </div>
 </div>
 
 <div class="container">
-  <h1>About us</h1>
   <p>
-  私達は、阿南高専プログラミング部同好会です。<br>
-  全国プログラミングコンテストで入賞を目標に活動しています。<br>
-  オフシーズンは各々がプログラミング能力の向上を目指し勉強しています。<br>
-  といってもお菓子を食べたり専門系の課題をしたりゲームを作ったりと気軽に楽しく過ごしています。<br>
-  先輩も優しい人ばかりで気軽に話ができます（と言ってもこの文を書いてる私は五年生です）。<br>
-  「プログラミング」と言われても、ピンとこない人も少なくないでしょう。<br>
-  しかし、心配することはありません。これから身に付ければ大丈夫です。<br>
-  気難しく考えずに、共に学んでいきませんか？<br>
+	まだまだ記事が少ない状態です。<br>
+	「こんなことが知りたい!」ということがございましたらメールをいただけると返信もしくは記事にします。
+	<p class="bs-component">
+          <a href="mailto:1146939@st.anan-nct.ac.jp?subject=%82%b2%97v%96%5d%0d%0a&amp;body=%82%b2%8bL%93%fc%82%ad%82%be%82%b3%82%a2" class="btn btn-default">ご要望はコチラ</a>
+        </p>
   </p>
 </div>
 
 <div class="container">
-  <h1>Current project</h1>
-  <p>
-  H28プロコンに向けた調整中<br>
-  H28プロコンに向けた調整中<br>
-  H28プロコンに向けた調整中<br>
+  <h1>寮の役立ち情報</h1>
+   <p>
+	<ul>
+		<li><a href="/wiki/useful_items">あると便利なもの</a></li>
+	</ul>
   </p>
 </div>
 
 <div class="container">
-  <h1>Past record</h1>
+  <h1>学校の役立ち情報</h1>
   <p>
-  H27プロコン企業賞<br>
-  H27四国地区総合文化祭ミニプロコン２位
-  etc.
+	coming soon...
   </p>
 </div>
+
+<div class="container">
+  <h1>先生一覧</h1>
+  <p>
+	coming soon...
+  </p>
+</div>
+
+<div class="container">
+  <h1>施設一覧</h1>
+  <p>
+	coming soon...
+  </p>
+</div>
+</body>

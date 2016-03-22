@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% import tornado.template %}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>NITAC Procon</title>
+  <link rel="stylesheet" type="text/css" href="{{ static_url("css/bootstrap.css") }}">
+  <link rel="stylesheet" type="text/css" href="{{ static_url("temp.css") }}">
+   <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<header>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/home" class="navbar-brand">NITAC Programming club</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-main">
+        <ul class="nav navbar-nav">
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/blog/1">Blog</a></li>
+          <li><a href="/link">Link</a></li>
+          <li><a href="/wiki">Wiki</a></li>
+          {% if login_user == None %}
+            <li><a href="/auth/login">Login</a></li>
+          {% else %}
+            <li><a href="/auth/logout">Logout</a></li>
+          {% end %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+  
+
+
+
+<body>
+  <div class="container">
+    <form method="post" action="/auth/add_user">
+      {% module xsrf_form_html() %}  
+      アカウントネーム<br>
+      <textarea name="name" cols="20" rows="1"></textarea>
+      <br>パスワード<br>
+      <textarea name="password" cols="14" rows="1"></textarea>
+      <br>アクセス権限<br>
+      <select name="accessibility">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+      <br>ニックネーム<br>
+      <textarea name="nickname" cols="20" rows="1"></textarea><br>
+      <br>所属<br>
+      <textarea name="classroom" cols="10" rows="1"></textarea><br>
+      <input type="submit">
+    </form>
+  </div>
+</body>
