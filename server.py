@@ -69,7 +69,6 @@ class AuthLoginHandler(BaseHandler):
     logging.debug('AuthLoginHandler:post %s %s' % (username, password))
 
     user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % username))[0]
-    print(user_data)
     if user_data != None and user_data[2] == password:
       self.set_current_user(username)
       self.redirect("/home")
@@ -85,7 +84,6 @@ class AddUserHandler(BaseHandler):
   def get(self):
     current_user = self.get_current_user()
     c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % current_user))[0]
-    print(c_user_data)
     if c_user_data != None and c_user_data[3] == "A":
       self.render("add_user.html",
                 login_user = current_user
@@ -116,7 +114,6 @@ class AddUserHandler(BaseHandler):
 class HomeHandler(BaseHandler):
   def get(self):
     current_user = self.get_current_user()
-    print(current_user)
     a_right=False
     if current_user != None:
       c_user_data=list(c.execute('''SELECT * FROM admin where name="%s";''' % str(current_user)))[0]
@@ -176,7 +173,6 @@ class BlogSaveHandler(BaseHandler):
     title = self.get_argument('blog_title')
     category = self.get_argument('blog_category')
     body = self.get_argument('blog_body')
-    print(body)
     
     c.execute('''insert into blog(id,writer,nickname,date,title,category,body) values(:id, :writer, :nickname, :date, :title, :category, :body)''', {'id':blog_id, 'writer':writer, 'nickname':nickname, 'date': date.today(), 'title':title, 'category':category, 'body':body})
     conn.commit()
